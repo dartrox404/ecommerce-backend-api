@@ -8,6 +8,8 @@ const {
 } = require("./product_controller");
 
 const { handleGLobalValidation } = require("../../middleware/globalValidate");
+const { protect } = require("../../middleware/handleAuth");
+
 const {
   createProductSchema,
   updateProductSchema,
@@ -15,6 +17,7 @@ const {
 } = require("../../validation/productValidator");
 
 const router = express.Router();
+app.use(protect);
 
 router
   .route("/")

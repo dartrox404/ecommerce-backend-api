@@ -7,6 +7,7 @@ const {
 } = require("./order_controller");
 
 const { handleGLobalValidation } = require("../../middleware/globalValidate");
+const { protect } = require("../../middleware/handleAuth");
 
 const {
   createOrderSchema,
@@ -15,6 +16,7 @@ const {
 } = require("../../validation/orderValidation");
 
 const router = express.Router();
+router.use(protect);
 
 router.post("/", handleGLobalValidation(createOrderSchema), createOrder);
 router.get("/my-orders", getMyOrders);
