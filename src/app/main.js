@@ -8,22 +8,24 @@ const AppError = require("../utils/AppError");
 const cors = require("cors");
 const { errorHandler } = require("../middleware/handleAppError");
 const { apiLimiter, authLimiter } = require("../middleware/RateLimit");
+
 app.disable("x-powered-by");
 
 app.use(helmet());
 app.use(cors());
 
-app.use("/", (req, res, next) => {
-  res.send("BINGO");
-});
-
 app.use("/api/v2/auth", authLimiter, userRoutes);
 app.use("/api/v3/order", apiLimiter, orderRoutes);
 app.use("/api/v1/products", apiLimiter, productRoutes);
 
+app.get("/", (req, res, next) => {
+  res.send("BINGO");
+});
+
 app.use((req, res, next) => {
-  return next(new AppError(`Route : ${req.orginalUrl} not found`));
+  return next(new AppError(`Route : ${req.originalUrl} not found`));
 });
 
 app.use(errorHandler);
+
 module.exports = app;

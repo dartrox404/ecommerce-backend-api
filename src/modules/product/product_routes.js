@@ -17,7 +17,7 @@ const {
 } = require("../../validation/productValidator");
 
 const router = express.Router();
-app.use(protect);
+router.use(protect);
 
 router
   .route("/")
