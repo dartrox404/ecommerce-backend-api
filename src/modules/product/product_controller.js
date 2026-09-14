@@ -6,7 +6,7 @@ const sendStatus = (text, res, statusCode, data) => {
   res.status(statusCode).json({ success: true, message: text, context: data });
 };
 
-exports.getProducts = catchAsync(async (req, res) => {
+exports.getProducts = catchAsync(async (req, res,next) => {
   const products = await productRepository.getProducts();
   if (products.length === 0) {
     return next(new AppError("No data to show", 404));
@@ -27,7 +27,7 @@ exports.getProductById = catchAsync(async (req, res, next) => {
   sendStatus("Product retrieved successfully.", res, 200, product);
 });
 
-exports.createProduct = catchAsync(async (req, res) => {
+exports.createProduct = catchAsync(async (req, res,next) => {
   const product = await productRepository.createProduct(req.body);
   sendStatus("Product created successfully.", res, 201, product);
 });

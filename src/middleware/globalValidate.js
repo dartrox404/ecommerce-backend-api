@@ -10,7 +10,7 @@ exports.handleGLobalValidation = (JoiSchema, property = "body") => {
       const message = error.details.map((e) => e.message).join(", ");
       return next(new AppError(message, 400));
     }
-    value = req[property];
+    req[property] = value;
     next();
   };
 };

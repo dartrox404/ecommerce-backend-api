@@ -14,6 +14,9 @@ app.disable("x-powered-by");
 app.use(helmet());
 app.use(cors());
 
+app.use(e.json());
+app.use(e.urlencoded({ extended: true }));
+
 app.use("/api/v2/auth", authLimiter, userRoutes);
 app.use("/api/v3/order", apiLimiter, orderRoutes);
 app.use("/api/v1/products", apiLimiter, productRoutes);
